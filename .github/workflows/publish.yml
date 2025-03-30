@@ -3,7 +3,11 @@ name: Publish to npm
 on:
   push:
     branches:
-      - main  # Change this to your default branch if needed
+      - main 
+
+permissions:
+  contents: write
+  actions: write
 
 jobs:
   publish:
