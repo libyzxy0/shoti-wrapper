@@ -19,8 +19,8 @@ export async function getShoti(apikey?: string, config?: ShotiConfig): Promise<S
 
     return data?.result ? data.result : null;
   } catch (error: any) {
-    shotiLogger.error(`[${error.response.status}]: ${error.response.data.error}`);
+    shotiLogger.error(`[${error.response.status}]: ${error.response.data.error || "Something went wrong!"}`);
     console.log(error)
-    return { error: error.response.data.error, code: error.response.status };
+    return { error: error.response.data.error || "Something went wrong!", code: error.response.status };
   }
 }
