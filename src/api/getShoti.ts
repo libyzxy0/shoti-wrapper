@@ -1,9 +1,9 @@
 import axios from "axios";
 import shotiLogger from "../logger";
 import { ShotiConfig, ShotiResponse, ShotiResult } from "../types";
-import { API_BASE } from '../constants'
+import { API_BASE } from '../constants';
 
-export async function getShoti(apikey?: string, config?: ShotiConfig): Promise<ShotiResult | null> {
+export async function getShoti(apikey?: string, config?: ShotiConfig): Promise<ShotiResult | { error: string; code: number }> {
   try {
     const type = config?.type === "image" ? "image" : "video";
 
@@ -14,13 +14,14 @@ export async function getShoti(apikey?: string, config?: ShotiConfig): Promise<S
 
     if (data.code !== 200) {
       shotiLogger.error(`API Error: ${data.error}`);
-      return { error: data.error, code: data.code };
+      return { error: data.error ?? "Unknown error", code: data.code ?? 500 };
     }
 
-    return data?.result ? data.result : null;
+    return data?.result ? data.result : { error: "No result found", code: 404 };
   } catch (error: any) {
-    shotiLogger.error(`[${error.response.status}]: ${error.response.data.error || "Something went wrong!"}`);
-    console.log(error)
-    return { error: error.response.data.error || "Something went wrong!", code: error.response.status };
+    const message = error.response?.data?.error ?? error.message ?? "Something went wrong!";
+    const status = error.response?.status ?? 500;
+    shotiLogger.error(`[${status}]: ${message}`);
+    return { error: message, code: status };
   }
 }

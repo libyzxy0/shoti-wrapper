@@ -1,7 +1,0 @@
-{
-  "name": "shoti-wrapper",
-  "version": "1.0.0",
-  "entry": "./dist/mod.mjs",
-  "registry": "jsr.io",
-  "authors": ["libyzxy0"]
-}

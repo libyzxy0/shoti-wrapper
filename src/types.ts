@@ -1,6 +1,6 @@
 export type ShotiType = "image" | "video";
 
-export type User = {
+export interface User {
   username: string;
   nickname: string;
   signature?: string;
@@ -8,7 +8,7 @@ export type User = {
   twitter?: string;
 }
 
-export type ShotiResult = {
+export interface ShotiResult {
   content: string | string[];
   duration: string;
   region: string;
@@ -17,13 +17,6 @@ export type ShotiResult = {
   title?: string;
   type: ShotiType;
   user: User;
-} | {
-  error?: string;
-  code?: number;
-}
-
-export type ShotiConfig = {
-  type?: ShotiType;
 }
 
 export interface ShotiResponse {
@@ -34,9 +27,24 @@ export interface ShotiResponse {
 }
 
 export type ShotiNewResponse = {
-  status?: string;
-  added_by?: string;
+  status: string;
+  added_by: string;
+  added_url: string;
   error?: string;
   code?: number;
-  added_url?: string;
 }
+
+export type ShotiRateResponse = 
+  | { success: true, rate_type: "GOOD" | "BAD" } 
+  | { error: string; code: number; };
+
+export interface ShotiTopResponse {
+  id: string;
+  name: string;
+  requests: number;
+  is_adder: boolean;
+}
+
+export type ShotiConfig = {
+  type?: ShotiType;
+} & Record<string, unknown>;
