@@ -3,7 +3,7 @@ name: Publish to npm
 on:
   push:
     branches:
-      - main  # Trigger on pushes to the main branch
+      - main
 
 permissions:
   contents: write
@@ -29,14 +29,13 @@ jobs:
       - name: Build package
         run: npm run build
 
-      - name: Bump version
+      - name: Bump version and commit changes
         run: |
           npm version patch -m "Bump version to %s [skip ci]"
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/libyzxy0/shoti-wrapper.git
           git push origin main --tags
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to npm
         run: npm publish --access public
