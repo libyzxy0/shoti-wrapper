@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -34,13 +36,11 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Bump version and commit changes
+      - name: Bump version and push changes
         run: |
           npm version patch -m "Bump version to %s [skip ci]"
           git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/libyzxy0/shoti-wrapper.git
-          git add package.json package-lock.json
-          git commit -m "Bump version to $(jq -r .version package.json) [skip ci]"
-          git push origin main --tags
+          git push origin main --tags --force  # Force push to sync changes
 
       - name: Publish to npm
         run: npm publish --access public
