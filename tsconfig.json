@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "declaration": true,         // Generate .d.ts files
+    "declarationDir": "dist",    // Output directory for .d.ts
+    "emitDeclarationOnly": true, // Only emit declarations when compiling
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "Node",
+    "outDir": "dist",
+    "strict": true
+  },
+  "include": ["src"]
+}
