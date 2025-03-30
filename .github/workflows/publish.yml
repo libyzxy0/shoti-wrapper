@@ -30,7 +30,7 @@ jobs:
           npm version patch -m "Bump version to %s [skip ci]"
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git push origin main --tags
+          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/libyzxy0/shoti-wrapper.git main --tags
 
       - name: Publish to npm
         run: npm publish --access public
