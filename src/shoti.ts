@@ -7,8 +7,8 @@ import { ShotiConfig } from "./types";
 export default class Shoti {
   private apikey?: string;
 
-  constructor(apikey?: string) {
-    this.apikey = apikey;
+  constructor(apikey?: string | { apikey: string }) {
+    this.apikey = typeof apikey === 'string' ? apikey : apikey?.apikey;
   }
 
   getShoti = (config?: ShotiConfig) => getShoti(this.apikey, config);
