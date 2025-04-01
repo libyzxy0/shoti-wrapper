@@ -11,7 +11,9 @@ export async function getTop(apikey?: string): Promise<ShotiTopResponse[] | { er
       { headers: { 'Content-Type': 'application/json' } }
     );
     
-    const top = data.slice(0, 10);
+    const users = data.filter(user => user.requests !== 0);
+    
+    const top = users.slice(0, 10);
     
     return top;
   } catch (error: any) {

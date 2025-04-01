@@ -5,6 +5,6 @@ const shoti = new Shoti({
 });
 
 (async function() {
-  const data = await shoti.getShoti();
+  const data = await shoti.getTop();
   console.log(data)
 })()
