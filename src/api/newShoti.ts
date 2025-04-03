@@ -11,11 +11,6 @@ export async function newShoti(url: string, apikey?: string): Promise<ShotiNewRe
       { headers: { 'Content-Type': 'application/json' } }
     );
 
-    if (data.status !== 'ok') {
-      shotiLogger.error(`API Error: ${data.error}`);
-      return { error: data.error ?? "Unknown error", code: data.code ?? 500, status: "failed", added_by: "", added_url: "" };
-    }
-
     return data;
   } catch (error: any) {
     const status = error.response?.status ?? 500;
